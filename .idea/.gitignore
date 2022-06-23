@@ -1,3 +1,9 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+*.xml
+
 # Compiled class file
 *.class
 
