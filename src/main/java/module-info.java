@@ -8,4 +8,8 @@ module com.example.greatestquotesofpolytech {
 
     opens com.greatestquotes to javafx.fxml;
     exports com.greatestquotes;
+    exports com.greatestquotes.controllers;
+    opens com.greatestquotes.controllers to javafx.fxml;
+    exports com.greatestquotes.database;
+    opens com.greatestquotes.database to javafx.fxml;
 }

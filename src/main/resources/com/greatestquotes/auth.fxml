@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.greatestquotes.controllers.AuthController">
+   <children>
+      <PasswordField layoutX="74.0" layoutY="123.0" prefHeight="25.0" prefWidth="252.0" />
+      <TextField layoutX="74.0" layoutY="81.0" prefHeight="25.0" prefWidth="252.0" />
+      <Button layoutX="74.0" layoutY="164.0" mnemonicParsing="false" onAction="#onSignInButtonClick" prefHeight="25.0" prefWidth="84.0" text="Sign In" />
+      <Button layoutX="158.0" layoutY="164.0" mnemonicParsing="false" onAction="#onSignUpButtonClick" prefHeight="25.0" prefWidth="84.0" text="Sign Up" />
+      <Button layoutX="242.0" layoutY="164.0" mnemonicParsing="false" onAction="#onGuestButtonClick" prefHeight="25.0" prefWidth="84.0" text="Guest" />
+      <Text layoutX="74.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="74.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="63.0" layoutY="47.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Please log in Great Quotes app" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

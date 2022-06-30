@@ -81,7 +81,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.example.greatestquotesofpolytech/com.greatestquotes.HelloApplication
+                                com.example.greatestquotesofpolytech/com.greatestquotes.Application
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
