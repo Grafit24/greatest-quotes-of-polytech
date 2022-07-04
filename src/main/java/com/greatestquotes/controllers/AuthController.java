@@ -1,11 +1,8 @@
 package com.greatestquotes.controllers;
 
-
-import com.greatestquotes.Application;
 import javafx.fxml.FXML;
 
-public class AuthController {
-    private Application rootApp;
+public class AuthController extends BaseController {
 
     @FXML
     protected void onGuestButtonClick() {
@@ -20,9 +17,5 @@ public class AuthController {
     @FXML
     protected void onSignInButtonClick() {
         System.out.println("SignIn pressed");
-    }
-
-    public void setAppFX(Application rootApp) {
-        this.rootApp = rootApp;
     }
 }

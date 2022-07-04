@@ -1,6 +1,9 @@
 package com.greatestquotes;
 
 import com.greatestquotes.controllers.AuthController;
+import com.greatestquotes.controllers.BaseController;
+import com.greatestquotes.controllers.RegController;
+import com.greatestquotes.models.DBHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -13,6 +16,8 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
+//        TODO Нужно сделать так чтоб в случае проблем с подключением об этом сообщалось пользователю.
+//        DBHandler.getConnection();
 
         showAuthWindow();
     }
@@ -23,7 +28,7 @@ public class Application extends javafx.application.Application {
             Scene scene = new Scene(fxmlLoader.load());
             primaryStage.setTitle("Authentication");
             primaryStage.setScene(scene);
-            AuthController controller = fxmlLoader.getController();
+            BaseController controller = fxmlLoader.getController();
             controller.setAppFX(this);
             primaryStage.show();
         } catch (IOException e) {
@@ -37,6 +42,8 @@ public class Application extends javafx.application.Application {
             Scene scene = new Scene(fxmlLoader.load());
             primaryStage.setTitle("Registration");
             primaryStage.setScene(scene);
+            BaseController controller = fxmlLoader.getController();
+            controller.setAppFX(this);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
