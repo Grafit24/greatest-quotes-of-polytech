@@ -1,7 +1,12 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+
+target
 target/
+target/*
+
+config.*
 
 *.xml
 
