@@ -1,9 +1,8 @@
 package com.greatestquotes;
 
-import com.greatestquotes.controllers.AuthController;
 import com.greatestquotes.controllers.BaseController;
-import com.greatestquotes.controllers.RegController;
-import com.greatestquotes.models.DBHandler;
+import com.greatestquotes.models.User;
+import com.greatestquotes.utils.HashCode;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -12,10 +11,12 @@ import java.io.IOException;
 
 public class Application extends javafx.application.Application {
     private Stage primaryStage;
+    private User user;
 
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
+        user = new User();
 //        TODO Нужно сделать так чтоб в случае проблем с подключением об этом сообщалось пользователю.
 //        DBHandler.getConnection();
 
@@ -30,6 +31,7 @@ public class Application extends javafx.application.Application {
             primaryStage.setScene(scene);
             BaseController controller = fxmlLoader.getController();
             controller.setAppFX(this);
+            controller.setUser(user);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -48,6 +50,10 @@ public class Application extends javafx.application.Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void showMainWindow() {
+        System.out.println("Open Main Window!");
     }
 
     public static void main(String[] args) {

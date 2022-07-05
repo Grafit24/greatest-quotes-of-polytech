@@ -1,12 +1,21 @@
 package com.greatestquotes.controllers;
 
+import com.greatestquotes.utils.HashCode;
 import javafx.fxml.FXML;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 public class AuthController extends BaseController {
 
     @FXML
+    protected TextField loginField;
+
+    @FXML
+    protected PasswordField passwordField;
+
+    @FXML
     protected void onGuestButtonClick() {
-        System.out.println("Guest enter");
+        rootApp.showMainWindow();
     }
 
     @FXML
@@ -16,6 +25,9 @@ public class AuthController extends BaseController {
 
     @FXML
     protected void onSignInButtonClick() {
-        System.out.println("SignIn pressed");
+        String login = loginField.getText();
+        String password = passwordField.getText();
+        if (user.auth(login, password))
+            rootApp.showMainWindow();
     }
 }

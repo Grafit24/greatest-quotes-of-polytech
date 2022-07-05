@@ -9,8 +9,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.greatestquotes.controllers.AuthController">
    <children>
-      <PasswordField layoutX="74.0" layoutY="123.0" prefHeight="25.0" prefWidth="252.0" />
-      <TextField layoutX="74.0" layoutY="81.0" prefHeight="25.0" prefWidth="252.0" />
+      <PasswordField fx:id="passwordField" layoutX="74.0" layoutY="123.0" prefHeight="25.0" prefWidth="252.0" />
+      <TextField fx:id="loginField" layoutX="74.0" layoutY="81.0" prefHeight="25.0" prefWidth="252.0" />
       <Button layoutX="74.0" layoutY="164.0" mnemonicParsing="false" onAction="#onSignInButtonClick" prefHeight="25.0" prefWidth="84.0" text="Sign In" />
       <Button layoutX="158.0" layoutY="164.0" mnemonicParsing="false" onAction="#onSignUpButtonClick" prefHeight="25.0" prefWidth="84.0" text="Sign Up" />
       <Button layoutX="242.0" layoutY="164.0" mnemonicParsing="false" onAction="#onGuestButtonClick" prefHeight="25.0" prefWidth="84.0" text="Guest" />
