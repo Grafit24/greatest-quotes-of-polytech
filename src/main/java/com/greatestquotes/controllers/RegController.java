@@ -7,19 +7,19 @@ import javafx.scene.text.Text;
 
 public class RegController extends BaseController {
     @FXML
-    private TextField loginField;
+    protected TextField loginField;
 
     @FXML
-    private TextField passwordField;
+    protected TextField passwordField;
 
     @FXML
-    private TextField repeatPasswordField;
+    protected TextField repeatPasswordField;
 
     @FXML
-    private Text messageText;
+    protected Text messageText;
 
     @FXML
-    private void onSignUpButtonClick() {
+    protected void onSignUpButtonClick() {
         String message = "";
         // TODO Улучшить систему проверки не позволяя создавать пустой аккаунт(в SQL так же).
         // TODO Улучшить систему проверки задав минимальные критерии для Логина и пароля(так же в SQL)
