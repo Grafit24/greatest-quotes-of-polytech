@@ -22,6 +22,6 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <Text fx:id="messageText" layoutX="113.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="179.0" />
+      <Text fx:id="messageText" fill="#d70000" layoutX="105.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="JUSTIFY" wrappingWidth="191.0" />
    </children>
 </AnchorPane>

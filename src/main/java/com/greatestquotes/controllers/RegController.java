@@ -20,21 +20,29 @@ public class RegController extends BaseController {
 
     @FXML
     protected void onSignUpButtonClick() {
-        String message = "";
-        // TODO Улучшить систему проверки не позволяя создавать пустой аккаунт(в SQL так же).
-        // TODO Улучшить систему проверки задав минимальные критерии для Логина и пароля(так же в SQL)
-        boolean loginCondition = loginField.getText().length() < 256;
-        boolean passwordCondition = passwordField.getText().equals(repeatPasswordField.getText());
-        if (!loginCondition)
-            message += "Please, use login not bigger than 255 symbols!\n";
-        if (!passwordCondition)
-            message += "Please, repeat password carefully!\n";
+        String login = loginField.getText();
+        String password = passwordField.getText();
 
-        if (!passwordCondition || !loginCondition)
-            messageText.setText(message);
-        else {
-            User.createNewUser(loginField.getText(), passwordField.getText());
-            rootApp.showAuthWindow();
+        // TODO Создать триггеры в SQL для логина.
+        boolean loginLengthCondition = login.length() < 256 && login.length() > 5;
+        boolean passwordEnterCondition = password.equals(repeatPasswordField.getText());
+        boolean notEmpty = login.length() > 0 && password.length() > 0;
+        boolean passwordWithoutSpaces = !password.contains(" ") && !login.contains(" ");
+
+        if (!loginLengthCondition)
+            messageText.setText("Please, use login from 6 to 255 symbols.");
+        else if (!passwordEnterCondition)
+            messageText.setText("Please, repeat password carefully.");
+        else if (!notEmpty)
+            messageText.setText("Please, fill the fields.");
+        else if (!passwordWithoutSpaces)
+            messageText.setText("Please, don't use spaces.");
+
+        if (loginLengthCondition && passwordEnterCondition && notEmpty && passwordWithoutSpaces) {
+            if (User.createNewUser(loginField.getText(), passwordField.getText()))
+                rootApp.showAuthWindow();
+            else
+                messageText.setText("User with this login already exist! Please, use another login.");
         }
     }
 }

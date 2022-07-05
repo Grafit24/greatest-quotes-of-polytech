@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+// TODO Сделать singelton (?)
 public class User {
     private long id;
     private String login;
@@ -42,7 +43,7 @@ public class User {
         return false;
     }
 
-    public static void createNewUser(String login, String password) {
+    public static boolean createNewUser(String login, String password) {
         String query = "INSERT INTO users (login, password) VALUES (?, ?)";
         Connection c = DBHandler.getConnection();
 
@@ -51,8 +52,11 @@ public class User {
             p.setString(1, login);
             p.setString(2, HashCode.encode(password));
             p.executeUpdate();
+            return true;
+        // TODO Выловливать duplicate exception отдельно.
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 }
