@@ -53,7 +53,17 @@ public class Application extends javafx.application.Application {
     }
 
     public void showMainWindow() {
-        System.out.println("Open Main Window!");
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("main.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            primaryStage.setTitle("Greatest quotes");
+            primaryStage.setScene(scene);
+            BaseController controller = fxmlLoader.getController();
+            controller.setAppFX(this);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
