@@ -43,7 +43,7 @@
                 <Insets bottom="25.0" />
             </HBox.margin>
         </Label>
-        <Label fx:id="userLabel" text="&lt;User&gt;">
+        <Label fx:id="ownerLabel" text="&lt;User&gt;">
             <font>
                 <Font size="14.0" />
             </font>

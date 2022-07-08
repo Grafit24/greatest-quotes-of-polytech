@@ -11,27 +11,27 @@
    <children>
       <AnchorPane prefHeight="70.0" prefWidth="1000.0" style="-fx-background-color: #ebedf0;">
          <children>
-            <Button layoutX="14.0" layoutY="20.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="88.0" text="Edit">
+            <Button fx:id="editButton" disable="true" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onAction="#onEditButtonClick" opacity="0.0" prefHeight="30.0" prefWidth="88.0" text="Edit">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button ellipsisString="" layoutX="911.0" layoutY="20.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" style="-fx-background-radius: 100;" text="Log out">
+            <Button ellipsisString="" layoutX="911.0" layoutY="20.0" mnemonicParsing="false" onAction="#onLogOutButtonClick" prefHeight="25.0" prefWidth="75.0" style="-fx-background-radius: 100;" text="Log out">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button layoutX="805.0" layoutY="20.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="88.0" text="Priofile">
+            <Button fx:id="profileButton" disable="true" layoutX="805.0" layoutY="20.0" mnemonicParsing="false" onAction="#onProfileButtonClick" opacity="0.0" prefHeight="30.0" prefWidth="88.0" text="Profile">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Label layoutX="125.0" layoutY="25.0" text="&lt;counter&gt;">
+            <Label fx:id="counterLabel" layoutX="125.0" layoutY="25.0" opacity="0.0" text="&lt;counter&gt;">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="735.0" layoutY="25.0" text="&lt;login&gt;">
+            <Label fx:id="loginLabel" layoutX="735.0" layoutY="25.0" opacity="0.0" text="&lt;login&gt;">
                <font>
                   <Font size="14.0" />
                </font>

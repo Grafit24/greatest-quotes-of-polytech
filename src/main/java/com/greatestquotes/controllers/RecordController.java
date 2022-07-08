@@ -20,7 +20,7 @@ public class RecordController extends HBox {
     protected Label teacherLabel;
 
     @FXML
-    protected Label userLabel;
+    protected Label ownerLabel;
 
     public void setQuoteLabel(String quote) {
         quoteLabel.setText(quote);
@@ -38,7 +38,7 @@ public class RecordController extends HBox {
         teacherLabel.setText(teacher);
     }
 
-    public void setUserLabel(String user) {
-        userLabel.setText(user);
+    public void setOwnerLabel(String user) {
+        ownerLabel.setText(user);
     }
 }

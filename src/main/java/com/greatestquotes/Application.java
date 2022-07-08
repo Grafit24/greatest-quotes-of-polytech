@@ -1,6 +1,7 @@
 package com.greatestquotes;
 
 import com.greatestquotes.controllers.BaseController;
+import com.greatestquotes.controllers.MainController;
 import com.greatestquotes.models.User;
 import com.greatestquotes.utils.HashCode;
 import javafx.fxml.FXMLLoader;
@@ -58,6 +59,7 @@ public class Application extends javafx.application.Application {
             primaryStage.setScene(scene);
             BaseController controller = fxmlLoader.getController();
             controller.setAppFX(this);
+            controller.setUser(user);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
