@@ -1,8 +1,8 @@
 package com.greatestquotes.models;
 
 import com.greatestquotes.utils.HashCode;
+import com.greatestquotes.utils.State;
 
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,51 +12,68 @@ import java.sql.SQLException;
 public class User {
     private long id;
     private String login;
-    private String role;
+    private Roles roles = new Roles();
 
     public User() {
-        role = "Guest";
+        roles.add(Roles.USER);
     }
 
-    public String getRole() {
-        return role;
+    public Roles getRoles() {
+        return roles;
     }
 
-    public boolean auth(String login, String password) {
-        String query = "SELECT id, login, role FROM `users` WHERE login=? AND password=?;";
-        Connection c = DBHandler.getConnection();
+    public State auth(String login, String password) {
+        String query = "SELECT users.id as id, roles.id as role_id, roles.role_name as role_name FROM " +
+                "users INNER JOIN credentials INNER JOIN roles ON users.id=id_user AND id_role=roles.id " +
+                "WHERE login=? AND password=? ORDER BY id;";
 
         try {
+            Connection c = DBHandler.getConnection();
             PreparedStatement p = c.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             p.setString(1, login);
             p.setString(2, HashCode.encode(password));
             ResultSet result = p.executeQuery();
             if (result.first()) {
-                this.login = login;
                 this.id = result.getLong("id");
-                this.role = result.getString("role");
-                return true;
+                this.login = login;
+            } else
+                return State.NO_ENTRY;
+
+            while (result.next()) {
+                if (this.id != result.getLong("id"))
+                    throw new SQLException("Something go wrong with auth query!");
+                long role_id = result.getLong("role_id");
+                String role_name = result.getString("role_name");
+                this.roles.add(new Role(role_id, role_name));
             }
+            result.close();
+            return State.DONE;
         } catch (SQLException e) {
             e.printStackTrace();
+            return switch (e.getSQLState()) {
+                case "08S01" -> State.NO_CONNECTION;
+                default -> State.UNKNOWN;
+            };
         }
-        return false;
     }
 
-    public static boolean createNewUser(String login, String password) {
+    public static State createNewUser(String login, String password) {
         String query = "INSERT INTO users (login, password) VALUES (?, ?)";
-        Connection c = DBHandler.getConnection();
 
         try {
+            Connection c = DBHandler.getConnection();
             PreparedStatement p = c.prepareStatement(query);
             p.setString(1, login);
             p.setString(2, HashCode.encode(password));
             p.executeUpdate();
-            return true;
-        // TODO Выловливать duplicate exception отдельно.
+            return State.DONE;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return switch (e.getSQLState()) {
+                case "08S01" -> State.NO_CONNECTION;
+                case "23000" -> State.DUPLICATE;
+                default -> State.UNKNOWN;
+            };
         }
     }
 }

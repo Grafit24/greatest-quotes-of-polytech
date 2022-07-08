@@ -14,11 +14,9 @@ public class Application extends javafx.application.Application {
     private User user;
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage){
         primaryStage = stage;
         user = new User();
-//        TODO Нужно сделать так чтоб в случае проблем с подключением об этом сообщалось пользователю.
-//        DBHandler.getConnection();
 
         showAuthWindow();
     }
