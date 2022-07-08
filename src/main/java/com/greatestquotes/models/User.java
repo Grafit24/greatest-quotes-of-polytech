@@ -76,6 +76,27 @@ public class User {
         }
     }
 
+    public State edit(String newLogin, String newPassword) {
+        String query = "UPDATE users SET login=?, password=? WHERE id=?;";
+
+        try {
+            Connection c = DBHandler.getConnection();
+            PreparedStatement p = c.prepareStatement(query);
+            p.setString(1, newLogin);
+            p.setString(2, HashCode.encode(newPassword));
+            p.setLong(3, id);
+            p.executeUpdate();
+            return State.DONE;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return switch (e.getSQLState()) {
+                case "08S01" -> State.NO_CONNECTION;
+                case "23000" -> State.DUPLICATE;
+                default -> State.UNKNOWN;
+            };
+        }
+    }
+
     public static State createNewUser(String login, String password) {
         String query = "INSERT INTO users (login, password) VALUES (?, ?)";
 

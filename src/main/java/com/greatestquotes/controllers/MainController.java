@@ -35,7 +35,7 @@ public class MainController extends BaseController {
 
     @FXML
     protected void onProfileButtonClick() {
-        System.out.println("Open edit profile window");
+        rootApp.showProfileWindow();
     }
 
     @FXML
@@ -55,6 +55,7 @@ public class MainController extends BaseController {
 
         if (!user.getRoles().contain(Roles.GUEST)) {
             loginLabel.setText(user.getLogin());
+            //TODO Заменить на Visible!
             loginLabel.setOpacity(1.);
             editButton.setOpacity(1.);
             editButton.setDisable(false);
