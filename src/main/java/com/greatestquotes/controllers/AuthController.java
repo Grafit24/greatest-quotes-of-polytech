@@ -1,6 +1,7 @@
 package com.greatestquotes.controllers;
 
 import com.greatestquotes.utils.HashCode;
+import com.greatestquotes.utils.State;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -35,9 +36,15 @@ public class AuthController extends BaseController {
         if (login.length() == 0 || password.length() == 0)
             messageText.setText("Please, fill the fields.");
 
-        if (user.auth(login, password))
+        State resultState = user.auth(login, password);
+        if (State.DONE.equals(resultState)) {
             rootApp.showMainWindow();
-        else
+        } else if (State.NO_ENTRY.equals(resultState)) {
             messageText.setText("Wrong login or password!");
+        } else if (State.NO_CONNECTION.equals(resultState)) {
+            messageText.setText("No connection to the server.");
+        } else {
+            messageText.setText("Something go wrong.");
+        }
     }
 }

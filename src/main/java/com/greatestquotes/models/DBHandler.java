@@ -23,11 +23,11 @@ public class DBHandler {
                connectionString, prop.getProperty("DB_USER"), prop.getProperty("DB_PASSWORD"));
     }
 
-    public static Connection getConnection() {
+    public static Connection getConnection() throws SQLException {
         if (connection == null)
             try {
                 connection = restartConnection();
-            } catch (SQLException | IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
