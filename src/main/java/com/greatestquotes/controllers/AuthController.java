@@ -1,6 +1,5 @@
 package com.greatestquotes.controllers;
 
-import com.greatestquotes.utils.HashCode;
 import com.greatestquotes.utils.State;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;

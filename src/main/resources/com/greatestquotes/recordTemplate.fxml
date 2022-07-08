@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<HBox xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.greatestquotes.controllers.RecordController" alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="985.0" spacing="10.0">
+    <children>
+        <Label fx:id="quoteLabel" alignment="BASELINE_CENTER" contentDisplay="TOP" prefHeight="70.0" prefWidth="605.0" style="-fx-background-color: #e8e9eb;" text="«Цитата»" textAlignment="JUSTIFY" textOverrun="WORD_ELLIPSIS">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <VBox alignment="BASELINE_LEFT" prefHeight="70.0" prefWidth="125.0" spacing="10.0">
+            <children>
+                <Label fx:id="teacherLabel" text="Преподаватель">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Label fx:id="subjectLabel" text="Предмет">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <HBox.margin>
+                <Insets />
+            </HBox.margin>
+            <padding>
+                <Insets top="5.0" />
+            </padding>
+        </VBox>
+        <Label fx:id="dateLabel" text="00.00.0000">
+            <font>
+                <Font size="14.0" />
+            </font>
+            <HBox.margin>
+                <Insets bottom="25.0" />
+            </HBox.margin>
+        </Label>
+        <Label fx:id="ownerLabel" text="&lt;User&gt;">
+            <font>
+                <Font size="14.0" />
+            </font>
+            <padding>
+                <Insets bottom="25.0" left="20.0" />
+            </padding>
+        </Label>
+    </children>
+    <padding>
+        <Insets bottom="15.0" left="25.0" right="25.0" top="15.0" />
+    </padding>
+</HBox>

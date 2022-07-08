@@ -30,7 +30,6 @@ public class DBHandler {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         return connection;
     }
 }
