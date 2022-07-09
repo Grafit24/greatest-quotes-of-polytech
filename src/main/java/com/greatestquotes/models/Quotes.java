@@ -40,7 +40,7 @@ public class Quotes extends ArrayList<Quote> {
                 boolean r = result.getBoolean("r");
                 boolean w = result.getBoolean("w");
                 boolean d = result.getBoolean("d");
-                Quote q = new Quote(id, quote, teacher, subject, date, owner, r, w, d);
+                Quote q = new Quote(id, quote, teacher, subject, date, owner, new Permissions(r, w, d));
                 this.add(q);
             }
         } catch (SQLException e) {

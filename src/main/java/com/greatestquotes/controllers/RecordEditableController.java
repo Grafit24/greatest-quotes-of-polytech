@@ -53,9 +53,9 @@ public class RecordEditableController extends RecordController {
         setSubjectLabel(q.subject());
         setDateLabel(q.date());
         setOwnerLabel(q.owner());
-        if (q.w())
+        if (q.permissions().w())
             editRecordButton.setVisible(true);
-        if (q.d())
+        if (q.permissions().d())
             deleteRecordButton.setVisible(true);
     }
 

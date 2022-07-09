@@ -1,5 +1,9 @@
 package com.greatestquotes.models;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashSet;
 
 public class Roles extends HashSet<Role> {
@@ -22,5 +26,31 @@ public class Roles extends HashSet<Role> {
 
     public boolean contain(Role role) {
         return this.stream().toList().contains(role);
+    }
+
+    public Role getByName(String role_name) {
+        for (Role r : this) {
+            if (r.name()==role_name)
+                return r;
+        }
+        return null;
+    }
+
+    public void parse() {
+        String query = "SELECT * FROM roles WHERE NOT role_name IN ('USER', 'MODERATOR', 'GUEST', 'SUPERUSER');";
+
+        try {
+            Connection c = DBHandler.getConnection();
+            PreparedStatement p = c.prepareStatement(query);
+            ResultSet result = p.executeQuery();
+
+            while (result.next()) {
+                this.add(new Role(result.getLong(1), result.getString(2)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBHandler.closeConnection();
+        }
     }
 }

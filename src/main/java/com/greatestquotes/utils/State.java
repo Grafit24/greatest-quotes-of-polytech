@@ -7,6 +7,7 @@ public record State(int state) {
     public static final State NO_ENTRY = new State(2);
     public static final State UNKNOWN = new State(1000);
     public static final State CUSTOM = new State(3);
+    public static final State NO_PERMISSIONS = new State(4);
 
     public int getState() {
         return state;

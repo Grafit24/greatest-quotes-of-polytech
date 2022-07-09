@@ -13,10 +13,14 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
+// TODO Сделать так чтобы кнопки становились невидимы при инициализации
 public class MainController extends BaseController {
 
     protected Quotes quotes = null;
     protected boolean view = true;
+
+    @FXML
+    protected Button createButton;
 
     @FXML
     protected VBox recordContainer;
@@ -54,9 +58,15 @@ public class MainController extends BaseController {
     }
 
     @FXML
+    protected void onCreateButtonClick() {
+        rootApp.showCreateWindow();
+    }
+
+    @FXML
     protected void onEditButtonClick() {
         editButton.setVisible(false);
         viewButton.setVisible(true);
+        createButton.setVisible(true);
         recordContainer.getChildren().clear();
         showEditableQuotes();
     }
@@ -65,6 +75,7 @@ public class MainController extends BaseController {
     protected void onViewButtonClick() {
         viewButton.setVisible(false);
         editButton.setVisible(true);
+        createButton.setVisible(false);
         recordContainer.getChildren().clear();
         showReadableQuotes();
     }
@@ -103,7 +114,7 @@ public class MainController extends BaseController {
         view = true;
         loadQuotes();
         for (Quote q : quotes)
-            if (q.r())
+            if (q.permissions().r())
                 addRecord(q);
     }
 
@@ -111,7 +122,7 @@ public class MainController extends BaseController {
         view = false;
         loadQuotes();
         for (Quote q : quotes)
-            if (q.w() || q.d())
+            if (q.permissions().w() || q.permissions().d())
                 addEditableRecord(q);
     }
 

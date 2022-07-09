@@ -91,6 +91,23 @@ public class Application extends javafx.application.Application {
         }
     }
 
+    public void showCreateWindow() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("write.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage extraStage = new Stage();
+            extraStage.setTitle("Create");
+            extraStage.setScene(scene);
+            BaseStageController controller = fxmlLoader.getController();
+            controller.setAppFX(this);
+            controller.setUser(user);
+            controller.setStage(extraStage);
+            extraStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         launch();
     }
