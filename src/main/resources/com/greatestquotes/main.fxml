@@ -26,7 +26,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Label fx:id="counterLabel" layoutX="125.0" layoutY="25.0" text="&lt;counter&gt;" visible="false">
+            <Label fx:id="counterLabel" layoutX="204.0" layoutY="25.0" text="&lt;counter&gt;" visible="false">
                <font>
                   <Font size="14.0" />
                </font>
@@ -36,6 +36,16 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <Button fx:id="viewButton" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onAction="#onViewButtonClick" prefHeight="30.0" prefWidth="88.0" text="View" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="updateButton" layoutX="121.0" layoutY="20.0" mnemonicParsing="false" onAction="#onUpdateButtonClick" text="Update">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <ScrollPane layoutY="70.0" prefHeight="730.0" prefWidth="1000.0">

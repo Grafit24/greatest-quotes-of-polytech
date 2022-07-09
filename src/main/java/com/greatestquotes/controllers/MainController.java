@@ -15,7 +15,8 @@ import java.io.IOException;
 
 public class MainController extends BaseController {
 
-    protected Quotes quotes;
+    protected Quotes quotes = null;
+    protected boolean view = true;
 
     @FXML
     protected VBox recordContainer;
@@ -33,6 +34,12 @@ public class MainController extends BaseController {
     protected Button profileButton;
 
     @FXML
+    protected Button updateButton;
+
+    @FXML
+    protected Button viewButton;
+
+    @FXML
     protected void onProfileButtonClick() {
         rootApp.showProfileWindow();
     }
@@ -45,8 +52,28 @@ public class MainController extends BaseController {
 
     @FXML
     protected void onEditButtonClick() {
+        editButton.setVisible(false);
+        viewButton.setVisible(true);
         recordContainer.getChildren().clear();
         showEditableQuotes();
+    }
+
+    @FXML
+    protected void onViewButtonClick() {
+        viewButton.setVisible(false);
+        editButton.setVisible(true);
+        recordContainer.getChildren().clear();
+        showReadableQuotes();
+    }
+
+    @FXML
+    protected void onUpdateButtonClick() {
+        quotes = null;
+        recordContainer.getChildren().clear();
+        if (view)
+            showReadableQuotes();
+        else
+            showEditableQuotes();
     }
 
     @Override
@@ -62,15 +89,24 @@ public class MainController extends BaseController {
         showReadableQuotes();
     }
 
+    protected void loadQuotes() {
+        if (quotes == null) {
+            quotes = new Quotes();
+            quotes.parse(user);
+        }
+    }
+
     protected void showReadableQuotes() {
-        quotes = new Quotes();
-        quotes.parse(user);
+        view = true;
+        loadQuotes();
         for (Quote q : quotes)
             if (q.r())
                 addRecord(q);
     }
 
     protected void showEditableQuotes() {
+        view = false;
+        loadQuotes();
         for (Quote q : quotes)
             if (q.w() || q.d())
                 addEditableRecord(q);
