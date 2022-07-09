@@ -5,6 +5,7 @@ import com.greatestquotes.models.User;
 import com.greatestquotes.utils.State;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -13,6 +14,7 @@ public class RecordEditableController extends RecordController {
     protected VBox recordContainer;
     protected User user;
     protected HBox record;
+    protected Label messageLabel;
 
     @FXML
     protected Button editRecordButton;
@@ -30,8 +32,10 @@ public class RecordEditableController extends RecordController {
         State state = quote.deleteQuote(user);
         if (State.DONE.equals(state))
             recordContainer.getChildren().remove(record);
+        else if (State.CUSTOM.equals(state))
+            messageLabel.setText("You haven't permissions for this operation. Please, update data!");
         else
-            System.out.println(state);
+            messageLabel.setText("Something go wrong.");
     }
 
     public void setRecordContainer(VBox recordContainer) {
@@ -57,5 +61,9 @@ public class RecordEditableController extends RecordController {
 
     public void setRecord(HBox record) {
         this.record = record;
+    }
+
+    public void setMessageLabel(Label messageLabel) {
+        this.messageLabel = messageLabel;
     }
 }

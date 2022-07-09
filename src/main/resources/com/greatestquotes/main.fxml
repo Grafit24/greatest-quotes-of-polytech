@@ -11,7 +11,7 @@
    <children>
       <AnchorPane prefHeight="70.0" prefWidth="1000.0" style="-fx-background-color: #ebedf0;">
          <children>
-            <Button fx:id="editButton" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onAction="#onEditButtonClick" prefHeight="30.0" prefWidth="88.0" text="Edit" visible="false">
+            <Button fx:id="editButton" layoutX="110.0" layoutY="20.0" mnemonicParsing="false" onAction="#onEditButtonClick" prefHeight="30.0" prefWidth="88.0" text="Edit" visible="false">
                <font>
                   <Font size="14.0" />
                </font>
@@ -31,21 +31,22 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="loginLabel" layoutX="735.0" layoutY="25.0" text="&lt;login&gt;" visible="false">
+            <Label fx:id="loginLabel" alignment="CENTER_RIGHT" layoutX="663.0" layoutY="25.0" prefHeight="20.0" prefWidth="123.0" text="&lt;login&gt;" visible="false">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="viewButton" layoutX="14.0" layoutY="20.0" mnemonicParsing="false" onAction="#onViewButtonClick" prefHeight="30.0" prefWidth="88.0" text="View" visible="false">
+            <Button fx:id="viewButton" layoutX="110.0" layoutY="20.0" mnemonicParsing="false" onAction="#onViewButtonClick" prefHeight="30.0" prefWidth="88.0" text="View" visible="false">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="updateButton" layoutX="121.0" layoutY="20.0" mnemonicParsing="false" onAction="#onUpdateButtonClick" text="Update">
+            <Button fx:id="updateButton" layoutX="27.0" layoutY="20.0" mnemonicParsing="false" onAction="#onUpdateButtonClick" text="Update">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
+            <Label fx:id="messageLabel" alignment="BASELINE_CENTER" layoutX="292.0" layoutY="10.0" prefHeight="53.0" prefWidth="361.0" textFill="RED" />
          </children>
       </AnchorPane>
       <ScrollPane layoutY="70.0" prefHeight="730.0" prefWidth="1000.0">

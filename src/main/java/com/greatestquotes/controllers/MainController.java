@@ -40,6 +40,9 @@ public class MainController extends BaseController {
     protected Button viewButton;
 
     @FXML
+    protected Label messageLabel;
+
+    @FXML
     protected void onProfileButtonClick() {
         rootApp.showProfileWindow();
     }
@@ -139,6 +142,7 @@ public class MainController extends BaseController {
             controller.setRecordContainer(recordContainer);
             controller.setUser(user);
             controller.setRecord(record);
+            controller.setMessageLabel(messageLabel);
             recordContainer.getChildren().add(record);
         } catch (IOException e) {
             e.printStackTrace();
