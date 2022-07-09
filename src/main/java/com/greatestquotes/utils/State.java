@@ -6,6 +6,7 @@ public record State(int state) {
     public static final State DUPLICATE = new State(1);
     public static final State NO_ENTRY = new State(2);
     public static final State UNKNOWN = new State(1000);
+    public static final State CUSTOM = new State(3);
 
     public int getState() {
         return state;

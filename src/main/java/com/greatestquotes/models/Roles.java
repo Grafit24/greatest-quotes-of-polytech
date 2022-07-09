@@ -12,9 +12,9 @@ public class Roles extends HashSet<Role> {
     public String createTemplate4Query() {
         StringBuilder builder = new StringBuilder();
         builder.append('(');
-        for (Role role : this) {
-            builder.append("?,");
-        }
+        for (Role role : this)
+            if (role.id() != Roles.MODERATOR.id())
+                builder.append("?,");
         builder.deleteCharAt(builder.length()-1);
         builder.append(')');
         return builder.toString();

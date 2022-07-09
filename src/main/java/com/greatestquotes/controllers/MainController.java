@@ -1,6 +1,5 @@
 package com.greatestquotes.controllers;
 
-import com.greatestquotes.Application;
 import com.greatestquotes.models.Quote;
 import com.greatestquotes.models.Quotes;
 import com.greatestquotes.models.Roles;
@@ -46,7 +45,8 @@ public class MainController extends BaseController {
 
     @FXML
     protected void onEditButtonClick() {
-        System.out.println("Go to edit regime");
+        recordContainer.getChildren().clear();
+        showEditableQuotes();
     }
 
     @Override
@@ -55,26 +55,29 @@ public class MainController extends BaseController {
 
         if (!user.getRoles().contain(Roles.GUEST)) {
             loginLabel.setText(user.getLogin());
-            //TODO Заменить на Visible!
-            loginLabel.setOpacity(1.);
-            editButton.setOpacity(1.);
-            editButton.setDisable(false);
-            profileButton.setOpacity(1.);
-            profileButton.setDisable(false);
+            loginLabel.setVisible(true);
+            editButton.setVisible(true);
+            profileButton.setVisible(true);
         }
-        showQuotes();
+        showReadableQuotes();
     }
 
-    protected void showQuotes() {
+    protected void showReadableQuotes() {
         quotes = new Quotes();
-        quotes.parseRead(user);
+        quotes.parse(user);
         for (Quote q : quotes)
             if (q.r())
                 addRecord(q);
     }
 
+    protected void showEditableQuotes() {
+        for (Quote q : quotes)
+            if (q.w() || q.d())
+                addEditableRecord(q);
+    }
+
     protected void addRecord(Quote quote) {
-        FXMLLoader loader = new FXMLLoader(Application.class.getResource("recordTemplate.fxml"));
+        FXMLLoader loader = new FXMLLoader(rootApp.getClass().getResource("recordTemplate.fxml"));
 
         try {
             HBox record = loader.load();
@@ -84,6 +87,22 @@ public class MainController extends BaseController {
             controller.setSubjectLabel(quote.subject());
             controller.setDateLabel(quote.date());
             controller.setOwnerLabel(quote.owner());
+            recordContainer.getChildren().add(record);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void addEditableRecord(Quote quote) {
+        FXMLLoader loader = new FXMLLoader(rootApp.getClass().getResource("recordEditableTemplate.fxml"));
+
+        try {
+            HBox record = loader.load();
+            RecordEditableController controller = loader.getController();
+            controller.setQuote(quote);
+            controller.setRecordContainer(recordContainer);
+            controller.setUser(user);
+            controller.setRecord(record);
             recordContainer.getChildren().add(record);
         } catch (IOException e) {
             e.printStackTrace();
