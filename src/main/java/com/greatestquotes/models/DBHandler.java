@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DBHandler {
-    private static Connection connection = null;
+    public static Connection connection;
 
     public static Connection restartConnection() throws SQLException, IOException {
         String configFilePath = "config.properties";
@@ -24,12 +24,19 @@ public class DBHandler {
     }
 
     public static Connection getConnection() throws SQLException {
-        if (connection == null)
-            try {
-                connection = restartConnection();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            connection = restartConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return connection;
+    }
+
+    public static void closeConnection() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

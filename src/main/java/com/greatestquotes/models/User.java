@@ -73,6 +73,8 @@ public class User {
                 case "08S01" -> State.NO_CONNECTION;
                 default -> State.UNKNOWN;
             };
+        } finally {
+            DBHandler.closeConnection();
         }
     }
 
@@ -94,6 +96,8 @@ public class User {
                 case "23000" -> State.DUPLICATE;
                 default -> State.UNKNOWN;
             };
+        } finally {
+            DBHandler.closeConnection();
         }
     }
 
@@ -114,6 +118,8 @@ public class User {
                 case "23000" -> State.DUPLICATE;
                 default -> State.UNKNOWN;
             };
+        } finally {
+            DBHandler.closeConnection();
         }
     }
 }

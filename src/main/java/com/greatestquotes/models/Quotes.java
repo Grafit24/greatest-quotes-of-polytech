@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Quotes extends ArrayList<Quote> {
-    public void parseRead(User user) {
+
+    public void parse(User user) {
         String query = "SELECT DISTINCT quotes.id as id, quote, teacher, subject, date, login as owner, " +
                 "BIT_OR(op_read) as r, BIT_OR(op_write) as w, BIT_OR(op_delete) as d " +
                 "FROM quotes INNER JOIN access INNER JOIN users ON quotes.id = access.id_record AND users.id=quotes.id_creator " +
@@ -43,6 +44,8 @@ public class Quotes extends ArrayList<Quote> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBHandler.closeConnection();
         }
     }
 }
