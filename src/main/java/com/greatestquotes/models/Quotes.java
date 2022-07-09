@@ -26,7 +26,7 @@ public class Quotes extends ArrayList<Quote> {
             for (Role role : user.getRoles())
                 p.setLong(i++, role.id());
             p.setLong(i++, user.getID());
-            p.setBoolean(i, true);
+            p.setBoolean(i, user.getRoles().contain(Roles.MODERATOR));
             ResultSet result = p.executeQuery();
 
             while (result.next()) {
