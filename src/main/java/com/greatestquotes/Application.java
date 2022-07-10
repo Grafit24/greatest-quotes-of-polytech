@@ -23,8 +23,7 @@ public class Application extends javafx.application.Application {
     public void stop() throws Exception {
         super.stop();
 
-        // TODO Починить, когда нет подключения не выводит из-за того что невозможно null.close()
-        DBHandler.getConnection().close();
+        DBHandler.closeConnection();
         System.out.println("Connection close. You can sleep calm :)");
     }
 

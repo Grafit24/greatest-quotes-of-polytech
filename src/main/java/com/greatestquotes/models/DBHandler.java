@@ -34,7 +34,8 @@ public class DBHandler {
 
     public static void closeConnection() {
         try {
-            connection.close();
+            if (connection != null && !connection.isClosed())
+                connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
