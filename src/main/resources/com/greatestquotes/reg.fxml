@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="319.0" prefWidth="400.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.greatestquotes.controllers.RegController">
+<AnchorPane prefHeight="319.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.greatestquotes.controllers.RegController">
    <children>
-      <TextField fx:id="loginField" layoutX="106.0" layoutY="86.0" prefHeight="25.0" prefWidth="191.0" />
-      <PasswordField fx:id="passwordField" layoutX="105.0" layoutY="130.0" prefHeight="25.0" prefWidth="191.0" />
-      <PasswordField fx:id="repeatPasswordField" layoutX="105.0" layoutY="175.0" prefHeight="25.0" prefWidth="191.0" />
-      <Button layoutX="171.0" layoutY="209.0" mnemonicParsing="false" onAction="#onSignUpButtonClick" text="Sign Up!" />
-      <Text layoutX="106.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Set login" />
-      <Text layoutX="106.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text layoutX="106.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Repeat password" />
-      <Text layoutX="106.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Set password" />
-      <Text layoutX="65.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="For registration, fill in the fields" textAlignment="CENTER">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Text>
-      <Text fx:id="messageText" fill="#d70000" layoutX="105.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="JUSTIFY" wrappingWidth="191.0" />
+      <TextField fx:id="loginField" layoutX="106.0" layoutY="86.0" prefHeight="25.0" prefWidth="191.0" promptText="Enter your login here" />
+      <PasswordField fx:id="passwordField" layoutX="105.0" layoutY="130.0" prefHeight="25.0" prefWidth="191.0" promptText="Enter your password here" />
+      <PasswordField fx:id="repeatPasswordField" layoutX="105.0" layoutY="175.0" prefHeight="25.0" prefWidth="191.0" promptText="Repeat your password here" />
+      <Button layoutX="171.0" layoutY="211.0" mnemonicParsing="false" onAction="#onSignUpButtonClick" text="Sign Up!" />
+      <Label layoutX="105.0" layoutY="69.0" text="Set login" />
+      <Label layoutX="105.0" layoutY="111.0" text="Set password" />
+      <Label layoutX="105.0" layoutY="160.0" text="Repeat password" />
+      <AnchorPane layoutX="-1.0" prefHeight="62.0" prefWidth="400.0" style="-fx-background-color: #ebedf0;">
+         <children>
+            <Label layoutX="147.0" layoutY="16.0" text="Registration">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label fx:id="messageLabel" alignment="BASELINE_CENTER" layoutX="105.0" layoutY="255.0" prefHeight="39.0" prefWidth="191.0" text="&lt;message&gt;" textFill="RED" wrapText="true" />
    </children>
 </AnchorPane>

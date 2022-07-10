@@ -1,8 +1,10 @@
 package com.greatestquotes.controllers;
 
+import com.greatestquotes.models.DBHandler;
 import com.greatestquotes.models.Quote;
 import com.greatestquotes.models.Quotes;
 import com.greatestquotes.models.Roles;
+import com.greatestquotes.utils.State;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -11,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class MainController extends BaseController {
 
@@ -57,7 +60,17 @@ public class MainController extends BaseController {
 
     @FXML
     protected void onCreateButtonClick() {
-        rootApp.showCreateWindow();
+        try {
+            // connection validation
+            DBHandler.getConnection();
+            DBHandler.closeConnection();
+
+            messageLabel.setText("");
+            rootApp.showCreateWindow();
+        } catch (SQLException e) {
+            State state = e.getSQLState().equals("08S01") ? State.NO_CONNECTION : State.UNKNOWN;
+            messageLabel.setText(state.getText());
+        }
     }
 
     @FXML

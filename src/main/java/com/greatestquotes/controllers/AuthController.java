@@ -2,9 +2,9 @@ package com.greatestquotes.controllers;
 
 import com.greatestquotes.utils.State;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 
 public class AuthController extends BaseController {
 
@@ -15,11 +15,22 @@ public class AuthController extends BaseController {
     protected PasswordField passwordField;
 
     @FXML
-    protected Text messageText;
+    protected Label messageLabel;
+
+    @Override
+    protected void initialize() {
+        super.initialize();
+        messageLabel.setText("");
+    }
 
     @FXML
     protected void onGuestButtonClick() {
-        rootApp.showMainWindow();
+        user.reset();
+        System.out.println(user);
+        if (user.getRoles().isEmpty())
+            messageLabel.setText("No connection.");
+        else
+            rootApp.showMainWindow();
     }
 
     @FXML
@@ -33,18 +44,16 @@ public class AuthController extends BaseController {
         String password = passwordField.getText();
 
         if (login.length() == 0 || password.length() == 0)
-            messageText.setText("Please, fill the fields.");
+            messageLabel.setText("Please, fill the fields.");
 
-        State resultState = user.auth(login, password);
-        if (State.DONE.equals(resultState)) {
-            user.parseCount();
-            rootApp.showMainWindow();
-        } else if (State.NO_ENTRY.equals(resultState)) {
-            messageText.setText("Wrong login or password!");
-        } else if (State.NO_CONNECTION.equals(resultState)) {
-            messageText.setText("No connection to the server.");
-        } else {
-            messageText.setText("Something go wrong.");
+        State state = user.auth(login, password);
+        switch (state) {
+            case DONE -> {
+                user.parseCount();
+                rootApp.showMainWindow();
+            }
+            case NO_ENTRY -> messageLabel.setText("Wrong login or password!");
+            default -> messageLabel.setText(state.getText());
         }
     }
 }

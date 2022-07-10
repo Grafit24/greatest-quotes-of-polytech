@@ -53,20 +53,18 @@ public class ProfileController extends BaseStageController {
             messageText.setText("Please, don't use spaces.");
 
         if (loginLengthCondition && passwordEnterCondition && notEmpty && passwordWithoutSpaces) {
-            State resultState = user.edit(loginField.getText(), newPasswordField.getText());
-            if (State.DONE.equals(resultState)) {
-                messageText.setTextFill(Paint.valueOf("GREEN"));
-                messageText.setText("Your data has changed successfully!");
-                user.auth(loginField.getText(), newPasswordField.getText());
-                stage.close();
-                rootApp.getMainWindowController().update();
-            } else if (State.DUPLICATE.equals(resultState)) {
-                messageText.setText(
+            State state = user.edit(loginField.getText(), newPasswordField.getText());
+            switch (state) {
+                case DONE -> {
+                    messageText.setTextFill(Paint.valueOf("GREEN"));
+                    messageText.setText("Your data has changed successfully!");
+                    user.auth(loginField.getText(), newPasswordField.getText());
+                    stage.close();
+                    rootApp.getMainWindowController().update();
+                }
+                case DUPLICATE -> messageText.setText(
                         "User with this login already exist! Please, use another login.");
-            } else if (State.NO_CONNECTION.equals(resultState)) {
-                messageText.setText("No connection to the server.");
-            } else {
-                messageText.setText("Something go wrong.");
+                default -> messageText.setText(state.getText());
             }
         }
     }

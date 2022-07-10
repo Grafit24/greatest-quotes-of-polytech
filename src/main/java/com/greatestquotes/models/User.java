@@ -17,7 +17,7 @@ public class User {
     private int count = 0;
 
     private User() {
-        reset();
+        roles = new Roles();
     }
 
     public static User getInstance() {
@@ -28,7 +28,9 @@ public class User {
 
     public void reset() {
         roles = new Roles();
-        roles.add(Roles.getGUEST());
+        Role guest = Roles.getGUEST();
+        if (guest != null)
+            roles.add(guest);
         login = "Guest";
         id = -1;
     }

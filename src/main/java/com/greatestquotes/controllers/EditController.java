@@ -27,14 +27,22 @@ public class EditController extends CreateController {
 
     @FXML
     protected void onSaveButtonClick() {
+        if (!validateFields()) {
+            messageLabel.setText("Fill in the fields.");
+            return;
+        }
         String quote = quoteField.getText();
         String teacher = teacherField.getText();
         String subject = subjectField.getText();
         Date date = Date.from(dateField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
         State state = q.editQuote(quote, teacher, subject, date, user, rolePermissionsHashMap);
-        if (State.DONE.equals(state)) {
-            rootApp.getMainWindowController().editQuoteEvent(q);
-            stage.close();
+        switch (state) {
+            case DONE -> {
+                messageLabel.setText("");
+                rootApp.getMainWindowController().editQuoteEvent(q);
+                stage.close();
+            }
+            default -> messageLabel.setText(state.getText());
         }
     }
 

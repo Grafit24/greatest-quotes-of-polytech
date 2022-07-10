@@ -49,6 +49,9 @@ public class CreateController extends BaseStageController {
     protected CheckBox deleteChecker;
 
     @FXML
+    protected Label messageLabel;
+
+    @FXML
     protected void onSetButtonClick() {
         ObservableList<String> selectedItems =  roleList.getSelectionModel().getSelectedItems();
         Permissions p = new Permissions(readChecker.isSelected(), editChecker.isSelected(), deleteChecker.isSelected());
@@ -69,20 +72,28 @@ public class CreateController extends BaseStageController {
         for (Role r: allRoles)
             roleList.getItems().add(r.name());
         roleList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        messageLabel.setText("");
     }
 
-    // TODO Переделать работу с Date под работу с LocalDate
     @FXML
     protected void onSaveButtonClick() {
+        if (!validateFields()) {
+            messageLabel.setText("Fill in the fields.");
+            return;
+        }
         String quote = quoteField.getText();
         String teacher = teacherField.getText();
         String subject = subjectField.getText();
         Date date = Date.from(dateField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
         State state = Quote.createQuote(quote, teacher, subject, date, user, rolePermissionsHashMap);
-        if (State.DONE.equals(state)) {
-            stage.close();
-            user.countAdd(true);
-            rootApp.getMainWindowController().update();
+        switch (state) {
+            case DONE -> {
+                messageLabel.setText("");
+                stage.close();
+                user.countAdd(true);
+                rootApp.getMainWindowController().update();
+            }
+            default -> messageLabel.setText(state.getText());
         }
     }
 
@@ -102,5 +113,12 @@ public class CreateController extends BaseStageController {
                 deleteChecker.setSelected(false);
             }
         }
+    }
+
+    protected boolean validateFields() {
+        return quoteField.getText().isEmpty() ||
+                teacherField.getText().isEmpty() ||
+                subjectField.getText().isEmpty() ||
+                dateField.getValue() == null;
     }
 }
