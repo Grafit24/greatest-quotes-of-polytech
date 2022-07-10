@@ -27,7 +27,7 @@ public class User {
 
     public void reset() {
         roles = new Roles();
-        roles.add(Roles.GUEST);
+        roles.add(Roles.getGUEST());
         login = "Guest";
         id = -1;
     }

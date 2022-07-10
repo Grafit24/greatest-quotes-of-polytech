@@ -3,7 +3,6 @@ package com.greatestquotes.controllers;
 import com.greatestquotes.models.Quote;
 import com.greatestquotes.models.Quotes;
 import com.greatestquotes.models.Roles;
-import com.greatestquotes.models.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -89,7 +88,7 @@ public class MainController extends BaseController {
     public void initialize() {
         super.initialize();
 
-        if (!user.getRoles().contain(Roles.GUEST)) {
+        if (!user.getRoles().contain(Roles.getGUEST())) {
             loginLabel.setText(user.getLogin());
             loginLabel.setVisible(true);
             editButton.setVisible(true);

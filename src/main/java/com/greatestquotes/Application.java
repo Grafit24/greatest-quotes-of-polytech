@@ -15,7 +15,6 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage){
         primaryStage = stage;
-
         showAuthWindow();
     }
 

@@ -33,11 +33,11 @@ public record Quote(long id, String quote, String teacher, String subject,
             // one of his role in list OR
             int i = 3;
             for (Role role : user.getRoles())
-                if (role.id() != Roles.MODERATOR.id())
+                if (role.id() != Roles.getMODERATOR().id())
                     pPerm.setLong(i++, role.id());
             // he moderator of one of creator's groups.
             pPerm.setLong(i++, user.getID());
-            pPerm.setBoolean(i, user.getRoles().contain(Roles.MODERATOR));
+            pPerm.setBoolean(i, user.getRoles().contain(Roles.getMODERATOR()));
             // Delete if he has permissions.
             pDelete.setLong(1, id);
             pPerm.executeUpdate();
@@ -85,11 +85,11 @@ public record Quote(long id, String quote, String teacher, String subject,
             // one of his role in list OR
             int i = 3;
             for (Role role : user.getRoles())
-                if (role.id() != Roles.MODERATOR.id())
+                if (role.id() != Roles.getMODERATOR().id())
                     pPerm.setLong(i++, role.id());
             // he moderator of one of creator's groups.
             pPerm.setLong(i++, user.getID());
-            pPerm.setBoolean(i, user.getRoles().contain(Roles.MODERATOR));
+            pPerm.setBoolean(i, user.getRoles().contain(Roles.getMODERATOR()));
             ResultSet result = pPerm.executeQuery();
             result.next();
             boolean flag = result.getBoolean("w");
@@ -133,7 +133,7 @@ public record Quote(long id, String quote, String teacher, String subject,
 
     public static State createQuote(String quote, String teacher, String subject, Date date, User user,
                                    HashMap<Role, Permissions> rolesPermissionsHashMap) {
-        if (!user.getRoles().contain(Roles.USER))
+        if (!user.getRoles().contain(Roles.getUSER()))
             return State.NO_PERMISSIONS;
         String queryInsertQuote = "INSERT INTO quotes(quote, teacher, subject, date, id_creator) VALUES (?, ?, ?, ?, ?);";
 
