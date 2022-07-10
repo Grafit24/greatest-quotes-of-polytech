@@ -1,5 +1,6 @@
 package com.greatestquotes.controllers;
 
+import com.greatestquotes.Application;
 import com.greatestquotes.models.Quote;
 import com.greatestquotes.models.User;
 import com.greatestquotes.utils.State;
@@ -15,6 +16,7 @@ public class RecordEditableController extends RecordController {
     protected User user;
     protected HBox record;
     protected Label messageLabel;
+    protected Application rootApp;
 
     @FXML
     protected Button editRecordButton;
@@ -24,7 +26,7 @@ public class RecordEditableController extends RecordController {
 
     @FXML
     protected void onEditRecordButtonClick() {
-
+        rootApp.showEditWindow(quote);
     }
 
     @FXML
@@ -65,5 +67,9 @@ public class RecordEditableController extends RecordController {
 
     public void setMessageLabel(Label messageLabel) {
         this.messageLabel = messageLabel;
+    }
+
+    public void setRootApp(Application rootApp) {
+        this.rootApp = rootApp;
     }
 }

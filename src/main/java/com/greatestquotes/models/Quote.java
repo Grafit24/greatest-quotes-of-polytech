@@ -55,66 +55,81 @@ public record Quote(long id, String quote, String teacher, String subject,
         }
     }
 
-    // TODO Доделать(неэффективный запрос на изменения access)
-//    public State editQuote(String quote, String teacher, String subject, Date date, User user,
-//                           HashMap<Role, Permissions> rolesPermissionsHashMap) {
-//        String queryCheckPermissions = "SELECT BIT_OR(op_write) as w FROM " +
-//                "quotes INNER JOIN access ON quotes.id=access.id_record " +
-//                "WHERE id=? AND (id_creator=? OR id_role IN " + user.getRoles().createTemplate4Query() + " OR " +
-//                "(id_role=3 AND (SELECT COUNT(*) > 0 FROM moderators_groups WHERE id_moderator=? " +
-//                "AND id_group IN (SELECT id_role FROM credentials WHERE id_user=id_creator)) AND ?)) " +
-//                "GROUP BY quotes.id;";
-//        String queryUpdateQuotes = "UPDATE quotes SET quote=?, teacher=?, subject=?, date=? WHERE id=?;";
-//        String queryUpdateAccess = "CALL editAccess(?, ?, ?, ?, ?)";
-//
-//        try {
-//            Connection c = DBHandler.getConnection();
-//            PreparedStatement pPerm = c.prepareStatement(queryCheckPermissions);
-//            PreparedStatement pQuotes = c.prepareStatement(queryUpdateQuotes);
-//            PreparedStatement pAccess = c.prepareStatement(queryUpdateAccess);
-//
-//            // this record
-//            pPerm.setLong(1, id);
-//            // user is creator OR
-//            pPerm.setLong(2, user.getID());
-//            // one of his role in list OR
-//            int i = 3;
-//            for (Role role : user.getRoles())
-//                if (role.id() != Roles.MODERATOR.id())
-//                    pPerm.setLong(i++, role.id());
-//            // he moderator of one of creator's groups.
-//            pPerm.setLong(i++, user.getID());
-//            pPerm.setBoolean(i, user.getRoles().contain(Roles.MODERATOR));
-//            ResultSet result = pPerm.executeQuery();
-//            boolean flag = result.getBoolean("w");
-//
-//            if (!flag)
-//                return State.NO_PERMISSIONS;
-//
-//            pQuotes.setString(1, quote);
-//            pQuotes.setString(2, teacher);
-//            pQuotes.setString(3, subject);
-//            pQuotes.setDate(4, new java.sql.Date(date.getTime()));
-//            pQuotes.setLong(5, id);
-//            pQuotes.executeUpdate();
-//
-//            for (Map.Entry<Role, Permissions> set: rolesPermissionsHashMap.entrySet()) {
-//                Role role = set.getKey();
-//                Permissions perm = set.getValue();
-//
-//            }
-//            return State.DONE;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return switch (e.getSQLState()) {
-//                case "08S01" -> State.NO_CONNECTION;
-//                case "42000" -> State.CUSTOM;
-//                default -> State.UNKNOWN;
-//            };
-//        } finally {
-//            DBHandler.closeConnection();
-//        }
-//    }
+    public State editQuote(String quote, String teacher, String subject, Date date, User user,
+                           HashMap<Role, Permissions> rolesPermissionsHashMap) {
+        String queryCheckPermissions = "SELECT BIT_OR(op_write) as w FROM " +
+                "quotes INNER JOIN access ON quotes.id=access.id_record " +
+                "WHERE id=? AND (id_creator=? OR id_role IN " + user.getRoles().createTemplate4Query() + " OR " +
+                "(id_role=3 AND (SELECT COUNT(*) > 0 FROM moderators_groups WHERE id_moderator=? " +
+                "AND id_group IN (SELECT id_role FROM credentials WHERE id_user=id_creator)) AND ?)) " +
+                "GROUP BY quotes.id;";
+
+        String queryUpdateQuotes = "UPDATE quotes SET quote=?, teacher=?, subject=?, date=? WHERE id=?;";
+
+        StringBuilder queryUpdateAccessBuilder = new StringBuilder("INSERT INTO access VALUES ");
+        queryUpdateAccessBuilder.append("(?, ?, ?, ?, ?),".repeat(rolesPermissionsHashMap.size()));
+        queryUpdateAccessBuilder.deleteCharAt(queryUpdateAccessBuilder.length()-1);
+        queryUpdateAccessBuilder.append(" ON DUPLICATE KEY UPDATE op_read = VALUES(op_read), op_write = VALUES(op_write), op_delete=VALUES(op_delete);");
+        String queryUpdateAccess = queryUpdateAccessBuilder.toString();
+
+        try {
+            Connection c = DBHandler.getConnection();
+            PreparedStatement pPerm = c.prepareStatement(queryCheckPermissions);
+            PreparedStatement pQuotes = c.prepareStatement(queryUpdateQuotes);
+            PreparedStatement pAccess = c.prepareStatement(queryUpdateAccess);
+
+            // this record
+            pPerm.setLong(1, id);
+            // user is creator OR
+            pPerm.setLong(2, user.getID());
+            // one of his role in list OR
+            int i = 3;
+            for (Role role : user.getRoles())
+                if (role.id() != Roles.MODERATOR.id())
+                    pPerm.setLong(i++, role.id());
+            // he moderator of one of creator's groups.
+            pPerm.setLong(i++, user.getID());
+            pPerm.setBoolean(i, user.getRoles().contain(Roles.MODERATOR));
+            ResultSet result = pPerm.executeQuery();
+            result.next();
+            boolean flag = result.getBoolean("w");
+
+            if (!flag)
+                return State.NO_PERMISSIONS;
+
+            pQuotes.setString(1, quote);
+            pQuotes.setString(2, teacher);
+            pQuotes.setString(3, subject);
+            pQuotes.setDate(4, new java.sql.Date(date.getTime()));
+            pQuotes.setLong(5, id);
+            pQuotes.executeUpdate();
+
+            if (!rolesPermissionsHashMap.isEmpty()) {
+                i = 1;
+                for (Map.Entry<Role, Permissions> set: rolesPermissionsHashMap.entrySet()) {
+                    Role role = set.getKey();
+                    Permissions perm = set.getValue();
+                    pAccess.setLong(i++, id);
+                    pAccess.setLong(i++, role.id());
+                    pAccess.setBoolean(i++, perm.r());
+                    pAccess.setBoolean(i++, perm.w());
+                    pAccess.setBoolean(i++, perm.d());
+                }
+                pAccess.executeUpdate();
+            }
+
+            return State.DONE;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return switch (e.getSQLState()) {
+                case "08S01" -> State.NO_CONNECTION;
+                case "42000" -> State.CUSTOM;
+                default -> State.UNKNOWN;
+            };
+        } finally {
+            DBHandler.closeConnection();
+        }
+    }
 
     public static State createQuote(String quote, String teacher, String subject, Date date, User user,
                                    HashMap<Role, Permissions> rolesPermissionsHashMap) {

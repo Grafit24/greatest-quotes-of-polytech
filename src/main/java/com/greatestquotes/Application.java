@@ -2,7 +2,10 @@ package com.greatestquotes;
 
 import com.greatestquotes.controllers.BaseController;
 import com.greatestquotes.controllers.BaseStageController;
+import com.greatestquotes.controllers.CreateController;
+import com.greatestquotes.controllers.EditController;
 import com.greatestquotes.models.DBHandler;
+import com.greatestquotes.models.Quote;
 import com.greatestquotes.models.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -94,14 +97,34 @@ public class Application extends javafx.application.Application {
     public void showCreateWindow() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("write.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
+            CreateController controller = new CreateController();
             Stage extraStage = new Stage();
             extraStage.setTitle("Create");
-            extraStage.setScene(scene);
-            BaseStageController controller = fxmlLoader.getController();
             controller.setAppFX(this);
             controller.setUser(user);
             controller.setStage(extraStage);
+            fxmlLoader.setController(controller);
+            Scene scene = new Scene(fxmlLoader.load());
+            extraStage.setScene(scene);
+            extraStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showEditWindow(Quote quote) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("write.fxml"));
+            Stage extraStage = new Stage();
+            EditController controller = new EditController();
+            controller.setAppFX(this);
+            controller.setUser(user);
+            controller.setQuote(quote);
+            controller.setStage(extraStage);
+            extraStage.setTitle("Edit");
+            fxmlLoader.setController(controller);
+            Scene scene = new Scene(fxmlLoader.load());
+            extraStage.setScene(scene);
             extraStage.show();
         } catch (IOException e) {
             e.printStackTrace();

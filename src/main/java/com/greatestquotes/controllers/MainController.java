@@ -154,6 +154,7 @@ public class MainController extends BaseController {
             controller.setUser(user);
             controller.setRecord(record);
             controller.setMessageLabel(messageLabel);
+            controller.setRootApp(rootApp);
             recordContainer.getChildren().add(record);
         } catch (IOException e) {
             e.printStackTrace();
