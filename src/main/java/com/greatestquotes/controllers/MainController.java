@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-// TODO Сделать так чтобы кнопки становились невидимы при инициализации
 public class MainController extends BaseController {
 
     protected Quotes quotes = null;
@@ -87,6 +86,14 @@ public class MainController extends BaseController {
     @Override
     public void initialize() {
         super.initialize();
+
+        loginLabel.setVisible(false);
+        counterLabel.setVisible(false);
+        messageLabel.setText("");
+        createButton.setVisible(false);
+        profileButton.setVisible(false);
+        editButton.setVisible(false);
+        viewButton.setVisible(false);
 
         if (!user.getRoles().contain(Roles.getGUEST())) {
             loginLabel.setText(user.getLogin());
