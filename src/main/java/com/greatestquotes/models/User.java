@@ -14,6 +14,7 @@ public class User {
     private String login;
     private Roles roles;
     private static User instance;
+    private int count = 0;
 
     private User() {
         reset();
@@ -106,6 +107,34 @@ public class User {
         } finally {
             DBHandler.closeConnection();
         }
+    }
+
+    public void parseCount() {
+        String query = "SELECT COUNT(*) FROM quotes WHERE id_creator=?;";
+
+        try {
+            Connection c = DBHandler.getConnection();
+            PreparedStatement p = c.prepareStatement(query);
+            p.setLong(1, id);
+            ResultSet result = p.executeQuery();
+            result.next();
+            count = result.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBHandler.closeConnection();
+        }
+    }
+
+    public void countAdd(boolean positive) {
+        if (positive)
+            count++;
+        else
+            count--;
+    }
+
+    public int getCount() {
+        return count;
     }
 
     public static State createNewUser(String login, String password) {

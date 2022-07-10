@@ -4,6 +4,7 @@ import com.greatestquotes.models.Permissions;
 import com.greatestquotes.models.Quote;
 import com.greatestquotes.models.Role;
 import com.greatestquotes.models.Roles;
+import com.greatestquotes.utils.State;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -77,7 +78,9 @@ public class CreateController extends BaseStageController {
         String teacher = teacherField.getText();
         String subject = subjectField.getText();
         Date date = Date.from(dateField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        Quote.createQuote(quote, teacher, subject, date, user, rolePermissionsHashMap);
+        State state = Quote.createQuote(quote, teacher, subject, date, user, rolePermissionsHashMap);
+        if (State.DONE.equals(state))
+            user.countAdd(true);
     }
 
     @FXML

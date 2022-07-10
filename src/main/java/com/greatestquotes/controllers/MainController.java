@@ -67,6 +67,7 @@ public class MainController extends BaseController {
         createButton.setVisible(true);
         recordContainer.getChildren().clear();
         showEditableQuotes();
+        updateCount();
     }
 
     @FXML
@@ -74,6 +75,7 @@ public class MainController extends BaseController {
         viewButton.setVisible(false);
         editButton.setVisible(true);
         createButton.setVisible(false);
+        counterLabel.setVisible(false);
         recordContainer.getChildren().clear();
         showReadableQuotes();
     }
@@ -81,6 +83,8 @@ public class MainController extends BaseController {
     @FXML
     protected void onUpdateButtonClick() {
         update();
+        user.parseCount();
+        updateCount();
     }
 
     @Override
@@ -168,5 +172,11 @@ public class MainController extends BaseController {
             showReadableQuotes();
         else
             showEditableQuotes();
+    }
+
+    protected void updateCount() {
+        if (!view)
+            counterLabel.setVisible(true);
+        counterLabel.setText(String.format("count: %d", user.getCount()));
     }
 }

@@ -37,6 +37,7 @@ public class AuthController extends BaseController {
 
         State resultState = user.auth(login, password);
         if (State.DONE.equals(resultState)) {
+            user.parseCount();
             rootApp.showMainWindow();
         } else if (State.NO_ENTRY.equals(resultState)) {
             messageText.setText("Wrong login or password!");
