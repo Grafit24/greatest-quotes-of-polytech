@@ -11,6 +11,7 @@ import java.io.IOException;
 
 public class Application extends javafx.application.Application {
     private Stage primaryStage;
+    private MainController mainWindowController;
 
     @Override
     public void start(Stage stage){
@@ -63,6 +64,7 @@ public class Application extends javafx.application.Application {
             MainController controller = fxmlLoader.getController();
             controller.setAppFX(this);
             controller.update();
+            mainWindowController = controller;
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -118,6 +120,10 @@ public class Application extends javafx.application.Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public MainController getMainWindowController() {
+        return mainWindowController;
     }
 
     public static void main(String[] args) {

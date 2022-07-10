@@ -79,8 +79,11 @@ public class CreateController extends BaseStageController {
         String subject = subjectField.getText();
         Date date = Date.from(dateField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
         State state = Quote.createQuote(quote, teacher, subject, date, user, rolePermissionsHashMap);
-        if (State.DONE.equals(state))
+        if (State.DONE.equals(state)) {
+            stage.close();
             user.countAdd(true);
+            rootApp.getMainWindowController().update();
+        }
     }
 
     @FXML

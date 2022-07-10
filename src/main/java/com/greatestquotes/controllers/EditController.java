@@ -2,7 +2,9 @@ package com.greatestquotes.controllers;
 
 import com.greatestquotes.models.Permissions;
 import com.greatestquotes.models.Quote;
+import com.greatestquotes.utils.State;
 import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -11,11 +13,16 @@ import java.util.Date;
 public class EditController extends CreateController {
     protected Quote q;
 
+    @FXML
+    protected AnchorPane ownerPanel;
+
     @Override
     protected void initialize() {
         super.initialize();
         headerLabel.setText("Edit");
         setQuoteData();
+        if (!user.getLogin().equals(q.owner()))
+            ownerPanel.setVisible(false);
     }
 
     @FXML
@@ -24,8 +31,11 @@ public class EditController extends CreateController {
         String teacher = teacherField.getText();
         String subject = subjectField.getText();
         Date date = Date.from(dateField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        q.editQuote(quote, teacher, subject, date, user, rolePermissionsHashMap);
-        stage.close();
+        State state = q.editQuote(quote, teacher, subject, date, user, rolePermissionsHashMap);
+        if (State.DONE.equals(state)) {
+            rootApp.getMainWindowController().editQuoteEvent(q);
+            stage.close();
+        }
     }
 
     public void setQuote(Quote quote) {

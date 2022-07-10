@@ -59,7 +59,7 @@ public class ProfileController extends BaseStageController {
                 messageText.setText("Your data has changed successfully!");
                 user.auth(loginField.getText(), newPasswordField.getText());
                 stage.close();
-                rootApp.showMainWindow();
+                rootApp.getMainWindowController().update();
             } else if (State.DUPLICATE.equals(resultState)) {
                 messageText.setText(
                         "User with this login already exist! Please, use another login.");

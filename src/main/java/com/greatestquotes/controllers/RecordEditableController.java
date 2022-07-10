@@ -35,7 +35,7 @@ public class RecordEditableController extends RecordController {
         if (State.DONE.equals(state)) {
             recordContainer.getChildren().remove(record);
             if (quote.owner().equals(user.getLogin()))
-                user.countAdd(false);
+                rootApp.getMainWindowController().deleteQuoteEvent(quote);
         }
         else if (State.CUSTOM.equals(state))
             messageLabel.setText("You haven't permissions for this operation. Please, update data!");

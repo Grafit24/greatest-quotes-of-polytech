@@ -66,6 +66,7 @@ public class MainController extends BaseController {
         viewButton.setVisible(true);
         createButton.setVisible(true);
         recordContainer.getChildren().clear();
+        view = false;
         showEditableQuotes();
         updateCount();
     }
@@ -77,6 +78,7 @@ public class MainController extends BaseController {
         createButton.setVisible(false);
         counterLabel.setVisible(false);
         recordContainer.getChildren().clear();
+        view = true;
         showReadableQuotes();
     }
 
@@ -115,16 +117,12 @@ public class MainController extends BaseController {
     }
 
     protected void showReadableQuotes() {
-        view = true;
-        loadQuotes();
         for (Quote q : quotes)
             if (q.permissions().r())
                 addRecord(q);
     }
 
     protected void showEditableQuotes() {
-        view = false;
-        loadQuotes();
         for (Quote q : quotes)
             if (q.permissions().w() || q.permissions().d())
                 addEditableRecord(q);
@@ -167,11 +165,37 @@ public class MainController extends BaseController {
 
     public void update() {
         quotes = null;
+        loadQuotes();
+        updateWithoutParsing();
+    }
+
+    protected void updateWithoutParsing() {
+        loginLabel.setText(user.getLogin());
         recordContainer.getChildren().clear();
-        if (view)
+        if (view) {
             showReadableQuotes();
-        else
+        }
+        else {
             showEditableQuotes();
+        }
+        updateCount();
+    }
+
+    public void deleteQuoteEvent(Quote q) {
+        for (int i = 0; i < quotes.size(); i++) {
+            if (q.id() == quotes.get(i).id())
+                quotes.remove(i);
+        }
+        user.countAdd(false);
+        updateWithoutParsing();
+    }
+
+    public void editQuoteEvent(Quote q) {
+        for (int i = 0; i < quotes.size(); i++) {
+            if (q.id() == quotes.get(i).id())
+                quotes.set(i, q);
+        }
+        updateWithoutParsing();
     }
 
     protected void updateCount() {
