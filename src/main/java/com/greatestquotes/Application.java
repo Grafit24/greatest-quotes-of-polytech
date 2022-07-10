@@ -16,6 +16,7 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage){
         primaryStage = stage;
+        primaryStage.setResizable(false);
         showAuthWindow();
     }
 
@@ -76,6 +77,7 @@ public class Application extends javafx.application.Application {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("profile.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Stage extraStage = new Stage();
+            extraStage.setResizable(false);
             extraStage.setTitle("Profile");
             extraStage.setScene(scene);
             BaseStageController controller = fxmlLoader.getController();
@@ -92,6 +94,7 @@ public class Application extends javafx.application.Application {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("write.fxml"));
             CreateController controller = new CreateController();
             Stage extraStage = new Stage();
+            extraStage.setResizable(false);
             extraStage.setTitle("Create");
             controller.setAppFX(this);
             controller.setStage(extraStage);
@@ -108,6 +111,7 @@ public class Application extends javafx.application.Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("write.fxml"));
             Stage extraStage = new Stage();
+            extraStage.setResizable(false);
             EditController controller = new EditController();
             controller.setAppFX(this);
             controller.setQuote(quote);
