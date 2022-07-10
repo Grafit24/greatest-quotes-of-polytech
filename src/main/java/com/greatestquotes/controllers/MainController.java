@@ -82,17 +82,12 @@ public class MainController extends BaseController {
 
     @FXML
     protected void onUpdateButtonClick() {
-        quotes = null;
-        recordContainer.getChildren().clear();
-        if (view)
-            showReadableQuotes();
-        else
-            showEditableQuotes();
+        update();
     }
 
     @Override
-    public void setUser(User user) {
-        super.setUser(user);
+    public void initialize() {
+        super.initialize();
 
         if (!user.getRoles().contain(Roles.GUEST)) {
             loginLabel.setText(user.getLogin());
@@ -100,7 +95,6 @@ public class MainController extends BaseController {
             editButton.setVisible(true);
             profileButton.setVisible(true);
         }
-        showReadableQuotes();
     }
 
     protected void loadQuotes() {
@@ -159,5 +153,14 @@ public class MainController extends BaseController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void update() {
+        quotes = null;
+        recordContainer.getChildren().clear();
+        if (view)
+            showReadableQuotes();
+        else
+            showEditableQuotes();
     }
 }

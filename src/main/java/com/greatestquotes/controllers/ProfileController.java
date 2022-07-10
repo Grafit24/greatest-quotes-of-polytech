@@ -25,6 +25,14 @@ public class ProfileController extends BaseStageController {
     @FXML
     protected Label rolesLabel;
 
+    @Override
+    public void initialize() {
+        super.initialize();
+
+        loginField.setText(user.getLogin());
+        rolesLabel.setText(formatRoles(user.getRoles()));
+    }
+
     @FXML
     protected void onSaveButtonClick() {
         String login = loginField.getText();
@@ -61,14 +69,6 @@ public class ProfileController extends BaseStageController {
                 messageText.setText("Something go wrong.");
             }
         }
-    }
-
-    @Override
-    public void setUser(User user) {
-        super.setUser(user);
-
-        loginField.setText(user.getLogin());
-        rolesLabel.setText(formatRoles(user.getRoles()));
     }
 
     protected String formatRoles(Roles roles) {

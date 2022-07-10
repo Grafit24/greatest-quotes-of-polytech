@@ -58,8 +58,9 @@ public class CreateController extends BaseStageController {
         }
     }
 
-    @FXML
+    @Override
     protected void initialize() {
+        super.initialize();
         headerLabel.setText("Create");
         ownerLabel.setText("");
         allRoles = new Roles();

@@ -1,12 +1,8 @@
 package com.greatestquotes;
 
-import com.greatestquotes.controllers.BaseController;
-import com.greatestquotes.controllers.BaseStageController;
-import com.greatestquotes.controllers.CreateController;
-import com.greatestquotes.controllers.EditController;
+import com.greatestquotes.controllers.*;
 import com.greatestquotes.models.DBHandler;
 import com.greatestquotes.models.Quote;
-import com.greatestquotes.models.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -15,12 +11,10 @@ import java.io.IOException;
 
 public class Application extends javafx.application.Application {
     private Stage primaryStage;
-    private User user;
 
     @Override
     public void start(Stage stage){
         primaryStage = stage;
-        user = new User();
 
         showAuthWindow();
     }
@@ -29,6 +23,7 @@ public class Application extends javafx.application.Application {
     public void stop() throws Exception {
         super.stop();
 
+        // TODO Починить, когда нет подключения не выводит из-за того что невозможно null.close()
         DBHandler.getConnection().close();
         System.out.println("Connection close. You can sleep calm :)");
     }
@@ -41,7 +36,6 @@ public class Application extends javafx.application.Application {
             primaryStage.setScene(scene);
             BaseController controller = fxmlLoader.getController();
             controller.setAppFX(this);
-            controller.setUser(user);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,9 +62,9 @@ public class Application extends javafx.application.Application {
             Scene scene = new Scene(fxmlLoader.load());
             primaryStage.setTitle("Greatest quotes");
             primaryStage.setScene(scene);
-            BaseController controller = fxmlLoader.getController();
+            MainController controller = fxmlLoader.getController();
             controller.setAppFX(this);
-            controller.setUser(user);
+            controller.update();
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,7 +80,6 @@ public class Application extends javafx.application.Application {
             extraStage.setScene(scene);
             BaseStageController controller = fxmlLoader.getController();
             controller.setAppFX(this);
-            controller.setUser(user);
             controller.setStage(extraStage);
             extraStage.show();
         } catch (IOException e) {
@@ -101,7 +94,6 @@ public class Application extends javafx.application.Application {
             Stage extraStage = new Stage();
             extraStage.setTitle("Create");
             controller.setAppFX(this);
-            controller.setUser(user);
             controller.setStage(extraStage);
             fxmlLoader.setController(controller);
             Scene scene = new Scene(fxmlLoader.load());
@@ -118,7 +110,6 @@ public class Application extends javafx.application.Application {
             Stage extraStage = new Stage();
             EditController controller = new EditController();
             controller.setAppFX(this);
-            controller.setUser(user);
             controller.setQuote(quote);
             controller.setStage(extraStage);
             extraStage.setTitle("Edit");

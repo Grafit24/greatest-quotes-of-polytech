@@ -8,14 +8,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-// TODO Сделать singleton (?)
+// Singleton pattern
 public class User {
     private long id;
     private String login;
     private Roles roles;
+    private static User instance;
 
-    public User() {
+    private User() {
         reset();
+    }
+
+    public static User getInstance() {
+        if (instance == null)
+            instance = new User();
+        return instance;
     }
 
     public void reset() {

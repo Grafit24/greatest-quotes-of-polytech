@@ -40,6 +40,7 @@ public class AuthController extends BaseController {
             rootApp.showMainWindow();
         } else if (State.NO_ENTRY.equals(resultState)) {
             messageText.setText("Wrong login or password!");
+        // TODO Починить, когда нет подключения не выводит из-за того что невозможно null.close()
         } else if (State.NO_CONNECTION.equals(resultState)) {
             messageText.setText("No connection to the server.");
         } else {

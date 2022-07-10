@@ -2,13 +2,15 @@ package com.greatestquotes.controllers;
 
 import com.greatestquotes.Application;
 import com.greatestquotes.models.User;
+import javafx.fxml.FXML;
 
 public abstract class BaseController {
     protected Application rootApp;
     protected User user;
 
-    public void setUser(User user) {
-        this.user = user;
+    @FXML
+    protected void initialize() {
+        user = User.getInstance();
     }
 
     public void setAppFX(Application rootApp) {
