@@ -1,15 +1,11 @@
 package com.greatestquotes.utils;
 
-public record State(int state) {
-    public static final State DONE = new State(-1);
-    public static final State NO_CONNECTION = new State(0);
-    public static final State DUPLICATE = new State(1);
-    public static final State NO_ENTRY = new State(2);
-    public static final State UNKNOWN = new State(1000);
-    public static final State CUSTOM = new State(3);
-    public static final State NO_PERMISSIONS = new State(4);
-
-    public int getState() {
-        return state;
-    }
+public enum State {
+    DONE,
+    NO_CONNECTION,
+    DUPLICATE,
+    NO_ENTRY,
+    UNKNOWN,
+    CUSTOM,
+    NO_PERMISSIONS
 }
