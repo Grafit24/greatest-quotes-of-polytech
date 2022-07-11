@@ -12,7 +12,7 @@
       <TextField fx:id="loginField" layoutX="106.0" layoutY="86.0" prefHeight="25.0" prefWidth="191.0" promptText="Enter your login here" />
       <PasswordField fx:id="passwordField" layoutX="105.0" layoutY="130.0" prefHeight="25.0" prefWidth="191.0" promptText="Enter your password here" />
       <PasswordField fx:id="repeatPasswordField" layoutX="105.0" layoutY="175.0" prefHeight="25.0" prefWidth="191.0" promptText="Repeat your password here" />
-      <Button layoutX="171.0" layoutY="211.0" mnemonicParsing="false" onAction="#onSignUpButtonClick" text="Sign Up!" />
+      <Button layoutX="141.0" layoutY="211.0" mnemonicParsing="false" onAction="#onSignUpButtonClick" text="Sign Up!" />
       <Label layoutX="105.0" layoutY="69.0" text="Set login" />
       <Label layoutX="105.0" layoutY="111.0" text="Set password" />
       <Label layoutX="105.0" layoutY="160.0" text="Repeat password" />
@@ -26,5 +26,6 @@
          </children>
       </AnchorPane>
       <Label fx:id="messageLabel" alignment="BASELINE_CENTER" layoutX="105.0" layoutY="255.0" prefHeight="39.0" prefWidth="191.0" text="&lt;message&gt;" textFill="RED" wrapText="true" />
+      <Button layoutX="217.0" layoutY="211.0" mnemonicParsing="false" onAction="#onBackButtonClick" text="Back" />
    </children>
 </AnchorPane>

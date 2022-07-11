@@ -26,6 +26,11 @@ public class RegController extends BaseController {
     }
 
     @FXML
+    protected void onBackButtonClick() {
+        rootApp.showAuthWindow();
+    }
+
+    @FXML
     protected void onSignUpButtonClick() {
         String login = loginField.getText();
         String password = passwordField.getText();

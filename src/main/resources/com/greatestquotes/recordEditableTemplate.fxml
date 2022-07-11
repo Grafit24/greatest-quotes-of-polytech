@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="985.0" spacing="10.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.greatestquotes.controllers.RecordEditableController">
+<HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="985.0" spacing="10.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.greatestquotes.controllers.RecordEditableController">
     <children>
-        <Label fx:id="quoteLabel" alignment="BASELINE_CENTER" contentDisplay="TOP" prefHeight="70.0" prefWidth="605.0" style="-fx-background-color: #e8e9eb;" text="«Цитата»" textAlignment="JUSTIFY" textOverrun="WORD_ELLIPSIS">
+        <Label fx:id="quoteLabel" alignment="BASELINE_CENTER" contentDisplay="TOP" prefHeight="70.0" prefWidth="605.0" style="-fx-background-color: #e8e9eb;" text="«Цитата»" textAlignment="JUSTIFY" textOverrun="WORD_ELLIPSIS" wrapText="true">
             <font>
                 <Font size="14.0" />
             </font>

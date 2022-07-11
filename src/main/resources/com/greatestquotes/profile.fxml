@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="450.0" prefWidth="350.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.greatestquotes.controllers.ProfileController">
+<AnchorPane prefHeight="450.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.greatestquotes.controllers.ProfileController">
    <children>
       <VBox prefHeight="450.0" prefWidth="350.0">
          <children>
@@ -75,7 +75,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="128.0" prefWidth="350.0">
                <children>
-                  <Label fx:id="rolesLabel" alignment="TOP_LEFT" layoutX="89.0" layoutY="14.0" prefHeight="92.0" prefWidth="173.0">
+                  <Label fx:id="rolesLabel" alignment="TOP_LEFT" layoutX="89.0" layoutY="14.0" prefHeight="92.0" prefWidth="173.0" wrapText="true">
                      <font>
                         <Font size="14.0" />
                      </font>
