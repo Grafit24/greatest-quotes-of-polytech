@@ -12,6 +12,9 @@ public class Roles extends HashSet<Role> {
     private static Role SUPERUSER;
     private static Role GUEST;
 
+    /* Генерируют заглушку для запроса, вида (?, ...),
+    где count(?)=roles.size()
+     */
     public String createTemplate4Query() {
         StringBuilder builder = new StringBuilder();
         builder.append('(');
@@ -43,9 +46,8 @@ public class Roles extends HashSet<Role> {
             PreparedStatement p = c.prepareStatement(query);
             ResultSet result = p.executeQuery();
 
-            while (result.next()) {
+            while (result.next())
                 this.add(new Role(result.getLong(1), result.getString(2)));
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

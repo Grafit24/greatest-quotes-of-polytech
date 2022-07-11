@@ -10,7 +10,7 @@ import java.util.Properties;
 public class DBHandler {
     public static Connection connection;
 
-    public static Connection restartConnection() throws SQLException, IOException {
+    private static Connection restartConnection() throws SQLException, IOException {
         String configFilePath = "config.properties";
         FileInputStream propsInput = new FileInputStream(configFilePath);
 
@@ -25,7 +25,8 @@ public class DBHandler {
 
     public static Connection getConnection() throws SQLException {
         try {
-            connection = restartConnection();
+            if (connection == null || connection.isClosed())
+                connection = restartConnection();
         } catch (IOException e) {
             e.printStackTrace();
         }

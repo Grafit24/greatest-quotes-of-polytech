@@ -55,7 +55,6 @@ public class RecordEditableController extends RecordController {
             case NO_PERMISSIONS -> {
                 messageLabel.setText("You haven't permissions for this operation. Data will be updated!");
                 rootApp.getMainWindowController().update();
-                messageLabel.setText("");
             }
             default -> messageLabel.setText(state.getText());
         }

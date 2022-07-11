@@ -116,9 +116,9 @@ public class CreateController extends BaseStageController {
     }
 
     protected boolean validateFields() {
-        return quoteField.getText().isEmpty() ||
+        return !(quoteField.getText().isEmpty() ||
                 teacherField.getText().isEmpty() ||
                 subjectField.getText().isEmpty() ||
-                dateField.getValue() == null;
+                dateField.getValue() == null);
     }
 }
