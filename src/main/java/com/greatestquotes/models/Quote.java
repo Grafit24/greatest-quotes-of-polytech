@@ -14,13 +14,13 @@ public record Quote(long id, String quote, String teacher, String subject,
                     Date date, String owner, Permissions permissions) {
 
     public State deleteQuote(User user) {
-        String queryCheckPermissions = "SET @flag = (SELECT BIT_OR(op_delete) as d FROM " +
+        String queryCheckPermissions = "SELECT BIT_OR(op_delete) as d FROM " +
                 "quotes INNER JOIN access ON quotes.id=access.id_record " +
                 "WHERE id=? AND (id_creator=? OR id_role IN " + user.getRoles().createTemplate4Query() + " OR " +
                 "(id_role=3 AND (SELECT COUNT(*) > 0 FROM moderators_groups WHERE id_moderator=? " +
                 "AND id_group IN (SELECT id_role FROM credentials WHERE id_user=id_creator)) AND ?)) " +
-                "GROUP BY quotes.id); ";
-        String queryDelete = "CALL deleteWithCheck(@flag, ?);";
+                "GROUP BY quotes.id;";
+        String queryDelete = "DELETE FROM quotes WHERE quotes.id=?;";
 
         try {
             Connection c = DBHandler.getConnection();
@@ -40,14 +40,18 @@ public record Quote(long id, String quote, String teacher, String subject,
             pPerm.setBoolean(i, user.getRoles().contain(Roles.getMODERATOR()));
             // Delete if he has permissions.
             pDelete.setLong(1, id);
-            pPerm.executeUpdate();
-            pDelete.executeUpdate();
+            ResultSet result = pPerm.executeQuery();
+            result.next();
+            if (result.getBoolean(1))
+                pDelete.executeUpdate();
+            else
+                return State.NO_PERMISSIONS;
+
             return State.DONE;
         } catch (SQLException e) {
             e.printStackTrace();
             return switch (e.getSQLState()) {
                 case "08S01" -> State.NO_CONNECTION;
-                case "42000" -> State.CUSTOM;
                 default -> State.UNKNOWN;
             };
         } finally {
