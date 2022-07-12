@@ -33,6 +33,7 @@ public class User {
             roles.add(guest);
         login = "Guest";
         id = -1;
+        count = 0;
     }
 
     public Roles getRoles() {

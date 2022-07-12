@@ -4,9 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class RecordController extends HBox {
+
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
     @FXML
     protected Label quoteLabel;
 
@@ -27,7 +31,7 @@ public class RecordController extends HBox {
     }
 
     public void setDateLabel(Date date) {
-        dateLabel.setText(date.toString());
+        dateLabel.setText(format.format(date));
     }
 
     public void setSubjectLabel(String subject) {

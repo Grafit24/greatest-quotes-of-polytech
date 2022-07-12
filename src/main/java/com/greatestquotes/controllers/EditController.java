@@ -36,13 +36,13 @@ public class EditController extends CreateController {
         String subject = subjectField.getText();
         Date date = Date.from(dateField.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
         State state = q.editQuote(quote, teacher, subject, date, user, rolePermissionsHashMap);
-        switch (state) {
-            case DONE -> {
-                messageLabel.setText("");
-                rootApp.getMainWindowController().editQuoteEvent(q);
-                stage.close();
-            }
-            default -> messageLabel.setText(state.getText());
+        if (state == State.DONE) {
+            messageLabel.setText("");
+            q = new Quote(q.id(), quote, teacher, subject, date, q.owner(), q.permissions());
+            rootApp.getMainWindowController().editQuoteEvent(q);
+            stage.close();
+        } else {
+            messageLabel.setText(state.getText());
         }
     }
 

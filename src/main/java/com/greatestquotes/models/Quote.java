@@ -35,7 +35,7 @@ public record Quote(long id, String quote, String teacher, String subject,
             for (Role role : user.getRoles())
                 if (role.id() != Roles.getMODERATOR().id())
                     pPerm.setLong(i++, role.id());
-            // he moderator of one of creator's groups.
+            // he is moderator of one of creator's groups.
             pPerm.setLong(i++, user.getID());
             pPerm.setBoolean(i, user.getRoles().contain(Roles.getMODERATOR()));
             // Delete if he has permissions.
@@ -91,7 +91,7 @@ public record Quote(long id, String quote, String teacher, String subject,
             for (Role role : user.getRoles())
                 if (role.id() != Roles.getMODERATOR().id())
                     pPerm.setLong(i++, role.id());
-            // he moderator of one of creator's groups.
+            // he is moderator of one of creator's groups.
             pPerm.setLong(i++, user.getID());
             pPerm.setBoolean(i, user.getRoles().contain(Roles.getMODERATOR()));
             ResultSet result = pPerm.executeQuery();
